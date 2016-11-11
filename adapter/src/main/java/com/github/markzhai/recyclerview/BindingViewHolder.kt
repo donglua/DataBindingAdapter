@@ -13,7 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.markzhai.recyclerview;
+package com.github.markzhai.recyclerview
 
-public class Dummy {
-}
+import android.databinding.ViewDataBinding
+import android.support.v7.widget.RecyclerView
+
+/**
+ * @author markzhai on 16/3/18
+ * *
+ * @version 1.0.0
+ */
+class BindingViewHolder<out T : ViewDataBinding>(val binding: T) : RecyclerView.ViewHolder(binding.root)
