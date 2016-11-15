@@ -100,11 +100,12 @@ public class MultiTypeAdapter extends BaseViewAdapter<Object> {
     }
 
     public void addAll(List viewModels, int viewType) {
+        final int originalSize = mCollection.size();
         mCollection.addAll(viewModels);
         for (int i = 0; i < viewModels.size(); ++i) {
             mCollectionViewType.add(viewType);
         }
-        notifyDataSetChanged();
+        notifyItemRangeChanged(originalSize, viewModels.size() - originalSize);
     }
 
     public void addAll(int position, List viewModels, int viewType) {
@@ -116,11 +117,12 @@ public class MultiTypeAdapter extends BaseViewAdapter<Object> {
     }
 
     public void addAll(List viewModels, MultiViewTyper multiViewTyper) {
+        final int originalSize = mCollection.size();
         mCollection.addAll(viewModels);
         for (int i = 0; i < viewModels.size(); ++i) {
             mCollectionViewType.add(multiViewTyper.getViewType(viewModels.get(i)));
         }
-        notifyDataSetChanged();
+        notifyItemRangeChanged(originalSize, viewModels.size() - originalSize);
     }
 
     public void remove(int position) {
