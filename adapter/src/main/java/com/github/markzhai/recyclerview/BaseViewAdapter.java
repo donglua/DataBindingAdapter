@@ -51,10 +51,10 @@ public abstract class BaseViewAdapter<T> extends RecyclerView.Adapter<BindingVie
         final Object item = mCollection.get(position);
         holder.getBinding().setVariable(BR.item, item);
         holder.getBinding().setVariable(BR.presenter, getPresenter());
-        holder.getBinding().executePendingBindings();
         if (mDecorator != null) {
             mDecorator.decorator(holder, position, getItemViewType(position));
         }
+        holder.getBinding().executePendingBindings();
     }
 
     @Override
