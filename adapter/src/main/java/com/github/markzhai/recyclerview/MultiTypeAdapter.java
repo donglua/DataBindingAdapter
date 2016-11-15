@@ -19,6 +19,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.LayoutRes;
 import android.support.v4.util.ArrayMap;
+import android.support.v7.util.DiffUtil;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -106,6 +107,15 @@ public class MultiTypeAdapter extends BaseViewAdapter<Object> {
             mCollectionViewType.add(viewType);
         }
         notifyItemRangeChanged(originalSize, viewModels.size() - originalSize);
+    }
+
+    public void addAll(List viewModels, int viewType, DiffUtil.Callback callback) {
+        mCollection.addAll(viewModels);
+        for (int i = 0; i < viewModels.size(); ++i) {
+            mCollectionViewType.add(viewType);
+        }
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
+        result.dispatchUpdatesTo(this);
     }
 
     public void addAll(int position, List viewModels, int viewType) {

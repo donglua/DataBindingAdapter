@@ -18,6 +18,7 @@ package com.github.markzhai.recyclerview;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.LayoutRes;
+import android.support.v7.util.DiffUtil;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -74,8 +75,15 @@ public class SingleTypeAdapter<T> extends BaseViewAdapter<T> {
     }
 
     public void addAll(List<T> viewModels) {
+        int originalSize = mCollection.size();
         mCollection.addAll(viewModels);
-        notifyDataSetChanged();
+        notifyItemRangeChanged(originalSize, viewModels.size() - originalSize);
+    }
+
+    public void addAll(List<T> viewModels, DiffUtil.Callback callback) {
+        mCollection.addAll(viewModels);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
+        result.dispatchUpdatesTo(this);
     }
 
     @LayoutRes
