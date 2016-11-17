@@ -109,13 +109,12 @@ public class MultiTypeAdapter extends BaseViewAdapter<Object> {
         notifyItemRangeChanged(originalSize, viewModels.size() - originalSize);
     }
 
-    public void addAll(List viewModels, int viewType, DiffUtil.Callback callback) {
+    public DiffUtil.DiffResult addAll(List viewModels, int viewType, DiffUtil.Callback callback) {
         mCollection.addAll(viewModels);
         for (int i = 0; i < viewModels.size(); ++i) {
             mCollectionViewType.add(viewType);
         }
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
-        result.dispatchUpdatesTo(this);
+        return DiffUtil.calculateDiff(callback);
     }
 
     public void addAll(int position, List viewModels, int viewType) {

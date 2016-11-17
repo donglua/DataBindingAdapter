@@ -7,13 +7,15 @@ import java.util.List;
  * Created by donglua on 16-11-15.
  */
 
-public abstract class DiffCallBack<T1, T2> extends DiffUtil.Callback {
-  private List<T1> oldData;
-  private List<T2> newData;
+public class DiffCallback<T> extends DiffUtil.Callback {
+  private List<T> oldData;
+  private List<T> newData;
+  private DiffInterface<T> diffInterface;
 
-  public DiffCallBack(List<T1> oldData, List<T2> newData) {
+  public DiffCallback(List<T> oldData, List<T> newData, DiffInterface diffInterface) {
     this.oldData = oldData;
     this.newData = newData;
+    this.diffInterface = diffInterface;
   }
 
   @Override public int getOldListSize() {
@@ -25,14 +27,10 @@ public abstract class DiffCallBack<T1, T2> extends DiffUtil.Callback {
   }
 
   @Override public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-    return areItemsTheSame(oldData.get(oldItemPosition), newData.get(newItemPosition));
+    return diffInterface.areItemsTheSame(oldData.get(oldItemPosition), newData.get(newItemPosition));
   }
 
   @Override public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-    return areContentsTheSame(oldData.get(oldItemPosition), newData.get(newItemPosition));
+    return diffInterface.areContentsTheSame(oldData.get(oldItemPosition), newData.get(newItemPosition));
   }
-
-  public abstract boolean areItemsTheSame(T1 t1, T2 t2);
-  public abstract boolean areContentsTheSame(T1 t1, T2 t2);
-
 }

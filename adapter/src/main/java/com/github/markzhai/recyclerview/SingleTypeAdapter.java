@@ -20,7 +20,6 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.LayoutRes;
 import android.support.v7.util.DiffUtil;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,9 +79,11 @@ public class SingleTypeAdapter<T> extends BaseViewAdapter<T> {
         notifyItemRangeChanged(originalSize, viewModels.size() - originalSize);
     }
 
-    public void addAll(List<T> viewModels, DiffUtil.Callback callback) {
+    public void addAll(List<T> viewModels, DiffInterface diffInterface) {
+        List<T> newItems = new ArrayList<>(mCollection);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(
+            new DiffCallback<>(mCollection, newItems, diffInterface));
         mCollection.addAll(viewModels);
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
         result.dispatchUpdatesTo(this);
     }
 
