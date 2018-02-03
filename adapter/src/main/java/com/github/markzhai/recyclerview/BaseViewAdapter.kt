@@ -29,7 +29,7 @@ abstract class BaseViewAdapter<T>(context: Context) : RecyclerView.Adapter<Bindi
   protected val mLayoutInflater: LayoutInflater
 
   protected var mCollection: MutableList<T>? = null
-  lateinit var presenter: Presenter
+  protected var mPresenter: Presenter? = null
 
   protected var mDecorator: Decorator? = null
 
@@ -46,7 +46,7 @@ abstract class BaseViewAdapter<T>(context: Context) : RecyclerView.Adapter<Bindi
   override fun onBindViewHolder(holder: BindingViewHolder<*>, position: Int) {
     val item = mCollection!![position]
     holder.binding.setVariable(BR.item, item)
-    holder.binding.setVariable(BR.presenter, presenter)
+    holder.binding.setVariable(BR.presenter, mPresenter)
     holder.binding.executePendingBindings()
     if (mDecorator != null) {
       mDecorator!!.decorator(holder, position, getItemViewType(position))
@@ -70,4 +70,10 @@ abstract class BaseViewAdapter<T>(context: Context) : RecyclerView.Adapter<Bindi
   fun setDecorator(decorator: Decorator) {
     mDecorator = decorator
   }
+
+  fun setPresenter(presenter: Presenter) {
+    this.mPresenter = presenter
+  }
+
+  fun getPresenter() = mPresenter
 }

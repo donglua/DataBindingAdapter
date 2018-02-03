@@ -26,10 +26,9 @@ import java.util.*
 
  * @author markzhai on 16/8/22
  */
-class SingleTypeAdapter<T>
-@JvmOverloads constructor(
+open class SingleTypeAdapter<T> constructor(
     context: Context,
-    protected var layoutRes: Int = 0
+    private var layoutRes: Int = 0
 ) : BaseViewAdapter<T>(context) {
 
   interface Presenter<T> : BaseViewAdapter.Presenter {
@@ -65,7 +64,7 @@ class SingleTypeAdapter<T>
     addAll(viewModels)
   }
 
-  fun addAll(viewModels: List<T>) {
+  open fun addAll(viewModels: List<T>) {
     mCollection!!.addAll(viewModels)
     notifyDataSetChanged()
   }

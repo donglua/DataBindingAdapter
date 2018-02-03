@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -32,8 +33,9 @@ dependencies {
     compile rootProject.ext.libSupportAppcompat
     compile rootProject.ext.libSupportRecyclerview
     compile rootProject.ext.libSupportV4
+    kapt rootProject.ext.libDataBindingCompiler
 
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:glide:3.8.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     //    compile 'com.github.markzhai:databinding-rv-adapter:1.0.0'
 }
